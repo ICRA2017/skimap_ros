@@ -108,3 +108,16 @@ alt="paper video" width="240" height="180" border="10" /></a>
 
 shows an integration of the SkiMap (using the abovementioned SkiMap Map Service) with the popular [ORBSLAM2](https://github.com/raulmur/ORB_SLAM2) framework.
 
+## Run in Docker
+
+Tested in Ubuntu 14.04.5, Docker version 18.03.1-ce, nvidia-docker 2.0, GeForce GTX-960.
+
+Allow X-server connections in host.
+
+```
+$ nvidia-docker run -it --rm --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" --volume="/DATA:/DATA:ro" --runtime=nvidia  skimap_ros
+root@bdcbe5c151de:/# source /opt/ros/kinetic/setup.bash
+root@bdcbe5c151de:/# source /root/catkin_ws/devel/setup.bash
+root@bdcbe5c151de:/# roslaunch skimap_ros skimap_live.launch &
+root@bdcbe5c151de:/# rosbag play /DATA/tiago_lar.bag --clock
+```
