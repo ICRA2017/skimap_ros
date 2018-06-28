@@ -21,7 +21,7 @@ RUN echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc
 RUN apt-get update && apt-get install -y \
 	python-catkin-pkg python-rosdep python-wstool \
 	python-catkin-tools ros-kinetic-catkin g++ \
-	software-properties-common ros-kinetic-geometry
+	software-properties-common ros-kinetic-geometry ros-kinetic-rviz
 
 RUN rm -rf /var/lib/apt/lists
 
@@ -45,4 +45,4 @@ RUN source /opt/ros/kinetic/setup.bash \
 RUN source /opt/ros/kinetic/setup.bash \
 	&& cd $CATKIN_WS \
 	&& catkin build
-	
+
