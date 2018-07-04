@@ -110,14 +110,21 @@ shows an integration of the SkiMap (using the abovementioned SkiMap Map Service)
 
 ## Run in Docker
 
+An X-server must be running in the host system, and permission for connections must be granted. 
+For more secure configurations, see [this tutorial](http://wiki.ros.org/docker/Tutorials/GUI#Using_X_server).
+
+Download the rosbag file [tiago_lar.bag](https://drive.google.com/open?id=0B02158j5inr3Tm9nQjhIQ3Fua3c) (3.2 GB) into a local folder, e.g. /DATA/skimap_ros/.
+
 Tested in Ubuntu 14.04.5, Docker version 18.03.1-ce, nvidia-docker 2.0, GeForce GTX-960.
 
-Allow X-server connections in host.
-
 ```
-$ nvidia-docker run -it --rm --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" --volume="/DATA:/DATA:ro" --runtime=nvidia  skimap_ros
+$ docker run -it --rm --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" \
+--volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+--volume="/DATA:/DATA:ro" --runtime=nvidia  icra2017/skimap_ros
 root@bdcbe5c151de:/# source /opt/ros/kinetic/setup.bash
 root@bdcbe5c151de:/# source /root/catkin_ws/devel/setup.bash
 root@bdcbe5c151de:/# roslaunch skimap_ros skimap_live.launch &
-root@bdcbe5c151de:/# rosbag play /DATA/tiago_lar.bag --clock
+root@bdcbe5c151de:/# rosbag play /DATA/skimap_ros/tiago_lar.bag --clock
 ```
+
+<img src="screenshot.png" align="center">
